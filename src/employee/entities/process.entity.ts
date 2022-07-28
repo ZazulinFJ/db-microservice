@@ -1,36 +1,36 @@
-import {Document} from "mongoose";
-import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
+import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type ProcessDocument = Process & Document;
 
 @Schema()
 export class Process {
-    @Prop()
-    status: string;
+  @Prop()
+  status: string;
 
-    @Prop()
-    total: number;
+  @Prop()
+  total: number;
 
-    @Prop()
-    valid: number
+  @Prop()
+  valid: number;
 
-    @Prop()
-    unvalid: number;
+  @Prop()
+  unvalid: number;
 
-    @Prop()
-    updated: number;
+  @Prop()
+  updated: number;
 
-    @Prop()
-    created: number;
+  @Prop()
+  created: number;
 
-    @Prop()
-    duplicate: number;
+  @Prop()
+  duplicate: number;
 
-    @Prop()
-    startIn: Date;
+  @Prop()
+  startIn: Date;
 
-    @Prop()
-    endIn: Date;
+  @Prop()
+  endIn: Date;
 }
 
 export const ProcessEntity = SchemaFactory.createForClass(Process);

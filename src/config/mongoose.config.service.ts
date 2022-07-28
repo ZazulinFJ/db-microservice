@@ -4,10 +4,9 @@ import {
 } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
 
-
 export class MongooseConfigService implements MongooseOptionsFactory {
-  configService = new ConfigService()
-  constructor() {}
+  configService = new ConfigService();
+
   createMongooseOptions():
     | Promise<MongooseModuleOptions>
     | MongooseModuleOptions {

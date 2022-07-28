@@ -1,26 +1,25 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import {Department} from "./department.entity";
-
+import { Department } from './department.entity';
 
 export type EmployeeDocument = Employee & Document;
 
 @Schema()
 export class Employee {
-    @Prop()
-    name: string;
+  @Prop()
+  name: string;
 
-    @Prop()
-    age: number;
+  @Prop()
+  age: number;
 
-    @Prop()
-    email: string;
+  @Prop()
+  email: string;
 
-    @Prop()
-    position: string;
+  @Prop()
+  position: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Department' })
-    department: Department;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Department' })
+  department: Department;
 }
 
 export const EmployeeEntity = SchemaFactory.createForClass(Employee);

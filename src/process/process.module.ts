@@ -2,10 +2,9 @@ import { Module } from '@nestjs/common';
 import { ProcessService } from './process.service';
 import { ProcessController } from './process.controller';
 
-
 @Module({
-  imports:[],
+  imports: [],
   controllers: [ProcessController],
-  providers: [ProcessService]
+  providers: [ProcessService],
 })
 export class ProcessModule {}
