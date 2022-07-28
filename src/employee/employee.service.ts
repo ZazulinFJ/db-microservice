@@ -1,17 +1,21 @@
 import {Injectable} from '@nestjs/common';
 import {Model} from "mongoose";
-import {Employee, EmployeeDocument} from "./entities/employee.entity";
+import {Employee, EmployeeDocument, EmployeeEntity} from "./entities/employee.entity";
 import {InjectModel} from "@nestjs/mongoose";
-import {Process, ProcessDocument} from "./entities/process.entity";
+import {Process, ProcessDocument, ProcessEntity} from "./entities/process.entity";
+import {DBFactory} from "../mongo-wrapper/mongo-wrapper.service";
+import {ConfigService} from "@nestjs/config";
 
 
 @Injectable()
 export class EmployeeService {
-    constructor(@InjectModel(Employee.name) private employeeModel: Model<EmployeeDocument>,
-                @InjectModel(Process.name) private processModel: Model<ProcessDocument>) {}
+    serviceConfig = new ConfigService()
+    private employeeModel = DBFactory.getModel('Employee', EmployeeEntity);
+    private processModel = DBFactory.getModel('Process', ProcessEntity);
 
     async updateEmp(data){
         let info = await this.employeeModel.bulkWrite(data.queryForBulk)
-        let a = await this.processModel.findOneAndUpdate({_id: data.currentProcess._id}, {$inc: {valid: data.queryForBulk.length, updated: info.nModified, created: info.nInserted, duplicate: info.nMatched - info.nModified}})
+        console.log(info)
+        await this.processModel.findOneAndUpdate({_id: data.currentProcess._id}, {$inc: {valid: data.queryForBulk.length, updated: info.nModified, created: info.nInserted, duplicate: info.nMatched - info.nModified}})
     }
 }

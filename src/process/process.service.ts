@@ -1,12 +1,11 @@
 import {Injectable} from '@nestjs/common';
-import {InjectModel} from "@nestjs/mongoose";
-
-import {Model} from "mongoose";
-import {Process, ProcessDocument} from "../employee/entities/process.entity";
+import {Process,  ProcessEntity} from "../employee/entities/process.entity";
+import {DBFactory} from "../mongo-wrapper/mongo-wrapper.service";
 
 @Injectable()
 export class ProcessService {
-    constructor(@InjectModel(Process.name) private processModel: Model<ProcessDocument>) {}
+    processModel = DBFactory.getModel('Process', ProcessEntity)
+    constructor() {}
     async getInfoProcess(id: string){
         let process = await this.processModel.findOne({_id: id})
         if(!process) return 'такого нет'
